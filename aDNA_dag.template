@@ -5,7 +5,7 @@ SCRIPT POST leehom check3Outputs.sh ${run}_leehom.fq.gz ${run}_leehom_r1.fq.gz $
 JOB bwa bwaALN.submit
 VARS bwa RUN="${run}"
 VARS bwa REF="${ref}"
-SCRIPT POST bwa check3Outputs.sh ${run}_merged_TN.sai ${run}_r1_TN.sai ${run}_r2_TN.sai 10M ${run}_1.fastq ${run}_2.fastq
+SCRIPT POST bwa check3Outputs_removeInter.sh ${run}_merged_TN.sai ${run}_r1_TN.sai ${run}_r2_TN.sai 10M ${run}_1.fastq ${run}_2.fastq
 
 JOB bwa_samse bwa_samse.submit
 VARS bwa_samse RUN="${run}"
