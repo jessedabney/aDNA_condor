@@ -1,0 +1,5 @@
+JOB fastq fastqc_single.submit
+VARS fastqc RUN="${run}"
+
+JOB leehom leehom_single.submit
+VARS leehom RUN="${run}"
