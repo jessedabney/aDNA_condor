@@ -20,6 +20,10 @@ JOB sort samtools_sort.submit
 VARS sort RUN="${run}"
 SCRIPT POST sort check3Outputs_removeInter.sh ${run}_merged_sort_TN.bam ${run}_r1_sort_TN.bam ${run}_r2_sort_TN.bam 10M ${run}_merged_TN.bam ${run}_r1_TN.bam ${run}_r2_TN.bam
 
+JOB mapdamage mapdamage.submit
+VARS mapdamage RUN="${run}"
+VARS mapdamage REF="${ref}"
+
 JOB merge samtools_merge.submit
 VARS merge RUN="${run}"
 SCRIPT POST merge checkOutput.sh ${run}_allReads_TN.bam 10M
