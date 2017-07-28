@@ -56,7 +56,7 @@ PARENT leehom CHILD bwa
 PARENT bwa CHILD bwa_samse
 PARENT bwa_samse CHILD view
 PARENT view CHILD sort
-PARENT sort CHILD merge
+PARENT sort CHILD mapdamage merge
 PARENT merge CHILD picard
 PARENT picard CHILD gatk
 PARENT gatk CHILD vcf_pilon
