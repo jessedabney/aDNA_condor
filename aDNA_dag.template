@@ -52,7 +52,7 @@ JOB fasta_pilon pilon_fasta.submit
 VARS fasta_pilon RUN="${run}"
 
 
-PARENT leehoom CHILD bwa
+PARENT leehom CHILD bwa
 PARENT bwa CHILD bwa_samse
 PARENT bwa_samse CHILD view
 PARENT view CHILD sort
