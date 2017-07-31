@@ -7,20 +7,20 @@ VARS bwa RUN="${run}"
 VARS bwa REF="${ref}"
 SCRIPT POST bwa checkOutput.sh ${run}_SE_TN.sai 1M
 
-JOB bwa_samse bwa_samse.submit
+JOB bwa_samse bwa_samse_SE.submit
 VARS bwa_samse RUN="${run}"
 VARS bwa_samse REF="${ref}"
 SCRIPT POST bwa_samse checkOutput_removeIntermediates.sh ${run}_SE_TN.sam 10M ${run}_SE_TN.sai
 
-JOB view samtools_view.submit
+JOB view samtools_view_SE.submit
 VARS view RUN="${run}"
 SCRIPT POST view checkOutput_removeIntermediates.sh ${run}_SE_TN.bam 10M ${run}_SE_TN.sam
 
-JOB sort samtools_sort.submit
+JOB sort samtools_sort_SE.submit
 VARS sort RUN="${run}"
-SCRIPT POST sort checkOutputs_removeIntermediates.sh ${run}_SE_sort_TN.bam 10M ${run}_SE_TN.bam
+SCRIPT POST sort checkOutput_removeIntermediates.sh ${run}_SE_sort_TN.bam 10M ${run}_SE_TN.bam
 
-JOB picard picard.submit
+JOB picard picard_SE.submit
 VARS picard RUN="${run}"
 VARS picard LIBRARY="${lib}"
 VARS picard PLATFORM="${platform}"
