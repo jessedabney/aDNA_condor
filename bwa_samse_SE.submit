@@ -1,0 +1,18 @@
+universe = vanilla
+executable = bwa_samse_SE.sh
+arguments = "$(RUN) $(REF)"
+
+
+output = bwa_samse_$(RUN).out
+error = bwa_samse_$(RUN).err
+log = bwa_samse_$(RUN).log
+
+transfer_executable = TRUE
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_input_files = $(RUN)_SE_TN.sai,$(RUN)_leehom.fq.gz
+request_cpus = 1
+request_memory = 2GB
+request_disk = 2GB
+
+queue

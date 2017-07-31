@@ -1,0 +1,54 @@
+JOB leehom leehom_single.submit
+VARS leehom RUN="${run}"
+SCRIPT POST leehom checkOutput.sh ${run}_leehom.fq.gz 10M
+
+JOB bwa bwaALN_singleEnd.submit
+VARS bwa RUN="${run}"
+VARS bwa REF="${ref}"
+SCRIPT POST bwa checkOutput.sh ${run}_SE_TN.sai 1M
+
+JOB bwa_samse bwa_samse.submit
+VARS bwa_samse RUN="${run}"
+VARS bwa_samse REF="${ref}"
+SCRIPT POST bwa_samse checkOutput_removeIntermediates.sh ${run}_SE_TN.sam 10M ${run}_SE_TN.sai
+
+JOB view samtools_view.submit
+VARS view RUN="${run}"
+SCRIPT POST view checkOutput_removeIntermediates.sh ${run}_SE_TN.bam 10M ${run}_SE_TN.sam
+
+JOB sort samtools_sort.submit
+VARS sort RUN="${run}"
+SCRIPT POST sort checkOutputs_removeIntermediates.sh ${run}_SE_sort_TN.bam 10M ${run}_SE_TN.bam
+
+JOB picard picard.submit
+VARS picard RUN="${run}"
+VARS picard LIBRARY="${lib}"
+VARS picard PLATFORM="${platform}"
+VARS picard SAMPLE="${sample}"
+SCRIPT POST picard checkOutput.sh ${run}.ready.bam 10M
+
+JOB gatk gatk.submit
+VARS gatk RUN="${run}"
+VARS gatk REF="${ref}"
+SCRIPT POST gatk checkOutput_removeIntermediates.sh ${run}.realn.bam 10M ${run}.ready.bam
+
+JOB vcf_pilon vcf_pilon.submit
+VARS vcf_pilon RUN="${run}"
+VARS vcf_pilon REF="${ref}"
+SCRIPT POST vcf_pilon checkOutput_removeIntermediates.sh ${run}_pilon.vcf 10M ${run}.dedup.bam ${run}_pilon.fasta
+
+JOB bamqc bamqc.submit
+VARS bamqc RUN="${run}"
+
+JOB fasta_pilon pilon_fasta.submit
+VARS fasta_pilon RUN="${run}"
+
+
+PARENT leehom CHILD bwa
+PARENT bwa CHILD bwa_samse
+PARENT bwa_samse CHILD view
+PARENT view CHILD sort
+PARENT sort CHILD picard
+PARENT picard CHILD gatk
+PARENT gatk CHILD vcf_pilon
+PARENT vcf_pilon CHILD bamqc fasta_pilon

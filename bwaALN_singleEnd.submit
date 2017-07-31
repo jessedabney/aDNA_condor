@@ -1,0 +1,18 @@
+universe = vanilla
+executable = bwaALN_singleEnd.sh
+arguments = "$(RUN) $(REF)"
+
+output = bwaALN_$(RUN).out
+error = bwa_$(RUN).err
+log = bwa_$(RUN).log
+
+transfer_executable = TRUE
+should_transfer_files = YES
+when_to_transfer_output = ON_EXIT
+transfer_input_files = $(RUN)_leehom.fq.gz
+
+request_cpus = 8
+request_memory = 2GB
+request_disk = 2GB
+
+queue
